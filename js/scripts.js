@@ -15,6 +15,26 @@ AddressBook.prototype.assignId = function() {
   this.currentId += 1;
   return this.currentId;
 }
+//We'll create a find() method that allows us to find a Contact by its id property. It will be a AddressBook prototype because that's where we're trying to find the specific Contact.
+AddressBook.prototype.findContact = function(id) {
+  for (var i=0; i< this.contacts.length; i++) {
+      if (this.contacts[i].id === id) {
+        return this.contacts[i];
+      }
+    };
+  return false;
+
+AddressBook.prototype.deleteContact = function(id) {
+  for (var i=0; i< this.contacts.length; i++) {
+    if (this.contacts[i]) {
+      if (this.contacts[i].id == id) {
+        delete this.contacts[i];
+        return true;
+      }
+    }
+  };
+  return false;
+}
 
 //Business logic for Contacts -------------
 function Contact(firstName, lastName, phoneNumber) {
