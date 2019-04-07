@@ -1,11 +1,19 @@
 //Business logic for AddressBook ---------
 function AddressBook() { //AddressBook constructor
   this.contacts = [] //an empty array, containing a list of Contact objects
+  this.currentId = 0 //Now each time a new AddressBook is created, it will have a currentId property that begins at 0.
 }
 
 //Create a prototype method to add new Contacts to an AddressBook: this new method, called addContact(), takes a contact object as an argument.
 AddressBook.prototype.addContact = function(contact) {
+  contact.id = this.assignId(); // we need to call this new assignId() method whenever we add a new Contact to the AddressBook
   this.contacts.push(contact); // it locates the AddressBook's contacts array by calling this.contacts. It uses push() to add the Contact provided as an argument to the AddressBook's contacts array property.
+}
+
+//ensure each new Contact added to the AddressBook has a unique ID
+AddressBook.prototype.assignId = function() {
+  this.currentId += 1;
+  return this.currentId;
 }
 
 //Business logic for Contacts -------------
