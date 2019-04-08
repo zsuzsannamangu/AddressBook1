@@ -23,7 +23,7 @@ AddressBook.prototype.findContact = function(id) {
       }
     };
   return false;
-
+}
 AddressBook.prototype.deleteContact = function(id) {
   for (var i=0; i< this.contacts.length; i++) {
     if (this.contacts[i]) {
@@ -34,7 +34,7 @@ AddressBook.prototype.deleteContact = function(id) {
     }
   };
   return false;
-}
+s}
 
 //Business logic for Contacts -------------
 function Contact(firstName, lastName, phoneNumber) {
@@ -47,11 +47,26 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
 
+// User Interface Logic ------------
 var addressBook = new AddressBook();
-var contact = new Contact("Ada", "Lovelace", "503-555-0100");
-var contact2 = new Contact("Grace", "Hopper", "503-555-0199");
-addressBook.addContact(contact);
-addressBook.addContact(contact2);
 
-// return addressBook.contacts;
-// return addressBook.contacts[0].firstName;
+function displayContactDetails(addressBookToDisplay) {
+  var contactsList = $("ul#contacts");
+  var htmlForContactInfo = "";
+  addressBookToDisplay.contacts.forEach(function(contact) {
+    htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+  });
+  contactsList.html(htmlForContactInfo);
+};
+
+$(document).ready(function()  {
+  $("form#new-contact").submit(function(event) {
+    event.preventDefault();
+    var inputtedFirstName = $("input#new-first-name").val();
+    var inputtedLastName = $("input#new-last-name").val();
+    var inputtedPhoneNumber = $("input#new-phone-number").val();
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+    addressBook.addContact(newContact);
+    console.log(addressBook.contacts);
+  });
+});
